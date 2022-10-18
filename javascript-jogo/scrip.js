@@ -60,8 +60,6 @@ console.log(limites)
 
 
 
-
-
 //COLOCANDO O JOGADOR
 const jogador = new Image()
 jogador.src = "../personagens/playerDown.png";
@@ -93,30 +91,44 @@ class ConfiguraMapa {
 }
 //CRIANDO UM OBJETO "FUNDO" que contem as configurações de um mapa
 const fundo = new ConfiguraMapa({ position: { x: 1024, y: 130 }, imagem: imagem })
+const test= new Limite({
+    posicao:{
+        x:400,
+        y:400
+    }
+})
+
 //Função que retorna a animação do mapa(o objeto fundo acessa seu metodo desenhar) e do jogador(o jogador "joao" acessa seu metodo desenharJogador)
 function animacao() {
     window.requestAnimationFrame(animacao)
     fundo.desenhar()
     joao.desenharJogador()
-    limites.forEach(limites=>{
+    
+    test.desenharLimite()
+    /*limites.forEach(limites=>{
         limites.desenharLimite()
-    })
+    })*/
 
 }
 animacao()//a chamada da função ANIMACAO
 //Adicionando eventos nas teclas de setas
+
 window.addEventListener('keydown', (e) => {
     switch (e.key) {
         case "ArrowDown": {
-            if (cameray === largura)
+            if (cameray === largura){
                 cameray = largura
+           
+            }
             else
                 cameray += speed
             break;
         }
         case "ArrowUp": {
-            if (cameray === 0)
-                cameray = 0
+            if (cameray === 0){
+                cameray = 0,
+                test.posicao.y +=3
+            }
             else
                 cameray -= speed
             break;
