@@ -56,10 +56,6 @@ mapaLimite.forEach((row, i) => {
 })
 console.log(limites) 
 
-
-
-
-
 //COLOCANDO O JOGADOR
 const jogador = new Image()
 jogador.src = "../personagens/playerDown.png";
@@ -89,14 +85,10 @@ class ConfiguraMapa {
         contexto.drawImage(this.imagem, camerax, cameray, largura / zoom, altura / zoom, 0, 0, largura, altura)
     }
 }
+
 //CRIANDO UM OBJETO "FUNDO" que contem as configurações de um mapa
-const fundo = new ConfiguraMapa({ position: { x: 1024, y: 130 }, imagem: imagem })
-const test= new Limite({
-    posicao:{
-        x:400,
-        y:400
-    }
-})
+const fundo = new ConfiguraMapa({ posicao: { x: bordas.x, y:bordas.y }, imagem: imagem })
+const test= new Limite({posicao:{x:400,y:400}})
 
 //Função que retorna a animação do mapa(o objeto fundo acessa seu metodo desenhar) e do jogador(o jogador "joao" acessa seu metodo desenharJogador)
 function animacao() {
@@ -108,32 +100,42 @@ function animacao() {
     /*limites.forEach(limites=>{
         limites.desenharLimite()
     })*/
-
+ 
+    
 }
+
 animacao()//a chamada da função ANIMACAO
 //Adicionando eventos nas teclas de setas
-
+lastKey=' ';
 window.addEventListener('keydown', (e) => {
     switch (e.key) {
+        case 'w':{
+            keys.w.pressed = true
+            lastKey = 'w'
+            break;
+        }
         case "ArrowDown": {
+            jogador.src = "../personagens/playerDown.png";
             if (cameray === largura){
                 cameray = largura
-           
+            test.posicao.y+=3
             }
             else
                 cameray += speed
             break;
         }
         case "ArrowUp": {
+            jogador.src = "../personagens/playerUp.png";
             if (cameray === 0){
-                cameray = 0,
-                test.posicao.y +=3
+                cameray = 0
+                
             }
             else
                 cameray -= speed
             break;
         }
         case "ArrowLeft": {
+            jogador.src = "../personagens/playerLeft.png";
             if (camerax === 0)
                 camerax = 0
             else
@@ -141,19 +143,10 @@ window.addEventListener('keydown', (e) => {
             break;
         }
         case "ArrowRight": {
+            jogador.src = "../personagens/playerRight.png";
             camerax += speed
             break;
         }
-        /*  case " ": {
-              zoom += 0.1;
-              break;
-          }
-          case "Enter": {
-              zoom -= 0.1;
-              break
-          }*/
-        default:
-            break;
     }
 
 })
